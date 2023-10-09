@@ -1,0 +1,27 @@
+section#secondary.section
+  .secondaries.stat-grid
+    h2(data-i18n='secondary stats')
+    +roller({name:'initiative',class:`initiative-label span-2`,'data-i18n':'initiative',role:'heading','aria-level':4})
+    +number({name:'initiative',class:`boxed initiative`,readonly:'',value:'0',trigger:{calculation:'calcInitiative'}})
+    +number({name:`initiative mod`,class:`boxed initiative_mod`,trigger:{affects:['initiative']}})
+    each name in secondaries
+      label(for=`${name}-mod` class=`${name}-label span-2` data-i18n=name role='heading' aria-level=4)
+      +number({name,class:`boxed ${name}`,readonly:'',value:secondaryDefaults[name],trigger:secondaryTriggers[name]})
+      +number({name:`${name} mod`,class:`boxed ${name}_mod`,id:`${name}-mod`,trigger:{affects:[`${name}`]}})
+    label(for='health' class='health-label' data-i18n='health',role='heading' aria-level=4)
+    .boxed.span-2
+      +number({name:'health',id:'health',trigger:{affects:['defence'],calculation:'totalHealth',initialFunc:'syncHealth'}})
+      span.slash /
+      +number(
+        {name:'health max',readonly:'',trigger:{affects:['defence'],triggeredFuncs:['calcHealth']}})
+    +number({name:`health mod`,class:`boxed health_mod`,trigger:{affects:['health_max']}})
+  .combat-gear.stat-grid
+    h2(data-i18n='combat gear')
+    each name in combatGear
+      - let inputObj = {name,class:'boxed',type:'number',trigger:combatGearTriggers[name]};
+      +input-label({
+        label: name,
+        inputObj,
+        divObj: {class:`${name} contents`},
+        spanObj: {role:'heading','aria-level':4}
+      })

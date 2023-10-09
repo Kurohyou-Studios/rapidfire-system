@@ -1,0 +1,80 @@
+@use '_systemplaceholders.scss';
+// Character styling
+$largeVehicleColumns:repeat(auto-fit,minmax(200px,1fr));
+#large-vehicle{
+  background:{
+    image:url(https://s3.amazonaws.com/files.d20.io/images/270587778/2qS0P_LxUgrRoc1eKjcfLA/original.jpg);
+    repeat:repeat-y;
+    size:100% auto;
+  }
+}
+#vehicle{
+  display:grid;
+  gap:var(--grid-gap);
+  grid-template-columns: $largeVehicleColumns;
+  .main-structure{
+    display:grid;
+    grid-template-columns:$largeVehicleColumns;
+    gap:var(--half-gap);
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    align-items:start;
+  }
+  #vehicle-header{
+    grid-column:1/-1;
+    grid-row:1/2;
+    justify-self:center;
+    text-align:center;
+  }
+  .repcontrol-button,
+  .repcontrol{
+    grid-row: 1 / 2;
+    grid-column: 1 / -1;
+    align-self:start;
+    position:relative;
+    top:calc(var(--half-gap) + var(--tiny-gap));
+  }
+  .repcontrol-button--add{
+    left:calc(var(--half-gap) + var(--tiny-gap));
+  }
+  .repcontrol{
+    right:calc(var(--half-gap) + var(--tiny-gap));
+  }
+  .repcontainer[data-groupname='repeating_vehicle']{
+    display:contents;
+    .repitem{
+      @extend %section;
+      @extend %baseSection;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+      gap:var(--half-gap);
+      align-items:start;
+      align-self:start;
+      [role="heading"]{
+        grid-column:1 / -1;
+      }
+      .collapse{
+        right:0;
+      }
+      .structure-track{
+        grid-column: 1 / -1;
+        justify-self:center;
+        display:flex;
+        flex-wrap:wrap;
+        gap:0;
+        h4{
+          margin-right:var(--half-gap);
+        }
+        & > .health-track__number{
+          width:2rem;
+        }
+      }
+      .attacks{
+        grid-column: 1 / -1;
+        display:flex;
+        flex-wrap:wrap;
+        gap:var(--half-gap);
+      }
+    }
+  }
+}

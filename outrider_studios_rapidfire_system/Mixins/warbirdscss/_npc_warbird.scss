@@ -1,0 +1,12 @@
+#npc-warbird{
+  display:grid;
+  gap:var(--half-gap);
+  .health-track{
+    display:grid;
+    justify-items: start;
+    grid-template-areas: 'header';
+    .repcontainer{
+      justify-self:stretch;
+    }
+  }
+}

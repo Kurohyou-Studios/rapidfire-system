@@ -1,0 +1,19 @@
+{
+  "name": "rapidfire",
+  "version": "0.1",
+  "description": "Repo for development of sheets for the rapidfire system",
+  "scripts": {
+    "build": "k-build",
+    "dev": "k-build --watch",
+    "test": "vitest run",
+    "test-watch": "vitest --ui"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@kurohyou/k-scaffold": "^2.0.1",
+    "@vitest/ui": "^0.29.5",
+    "vitest": "^0.29.5"
+  }
+}

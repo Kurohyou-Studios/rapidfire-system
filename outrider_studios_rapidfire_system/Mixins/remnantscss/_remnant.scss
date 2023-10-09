@@ -1,0 +1,21 @@
+@use '_systemplaceholders.scss';
+// Battle Remnant Styling
+#remnant{
+  @extend %article-layout;
+  &.system-remnant{
+    grid-template-areas:
+      "image"
+      "image"
+    ;
+    border:{
+      right:1px solid black;
+    }
+    grid-template-rows:auto 1fr;
+  }
+}
+#remnant-pic{
+  grid-area:image;
+  >.input-label{
+    justify-self:start;
+  }
+}

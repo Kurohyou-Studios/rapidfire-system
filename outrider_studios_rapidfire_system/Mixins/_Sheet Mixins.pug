@@ -1,0 +1,124 @@
+//- File for system specific mixins
+//- General variables
+- const abbreviations = {'situational awareness':'situation awareness abbreviation','remnant defence':'defence','strike dam':'strike damage','assault dam':'assault damage','strikerange':'strike range',sa:'situation awareness abbreviation',def:'defence',arm:'armour',spd:'speed',struct:'structure'};
+- const characterFields = ['character name','player name','nationality','organization affiliations'];
+- const stats = ['body','mind','spirit'];
+-
+  const statTriggers = {
+    body:{affects:['defence','health_max','situational_awareness']},
+    mind:{affects:['initiative','situational_awareness']},
+    spirit:{affects:['resist','health_max','situational_awareness']}
+  };
+- const secondaries = ['defence','resist'];
+- const secondaryDefaults = {defence:3,resist:0};
+-
+  const secondaryTriggers = {
+    defence:{calculation:'calcDefence'},
+    resist:{calculation:'calcResist'}
+  };
+- varObjects.trackerMonitors = [];
+//- Mixins
+mixin track(header,name,penaltyTrigger={affects:['defence']})
+  .health-track
+    h2(data-i18n=header,class='health-track__header')
+    +hidden({name:`${name} max`,value:0,class:'health-track__max-control'})
+    +fieldset({name})
+      +hidden({name:'name'})
+      +checkbox({name:'fill',hidden:'',class:'health-track__fill-control',value:'1'})
+      +checkbox({name:'damaged',class:'health-track__clear-control health-track__checkbox',value:'1',trigger:{affects:[`${name}`],triggeredFuncs:['checkHealth']}})
+      - addIfUnique(`repeating_${name}:clear`,'trackerMonitors');
+      +action({name:'clear',class:'health-track__clearer',trigger:{listenerFunc:'clearTracker'}})
+      +number({name:'penalty',class:'boxed health-track__number',trigger:penaltyTrigger})
+//- End Mixin
+mixin hexagon(attribs={},status)
+  .hexagon&attributes(attributes)&attributes(attribs)
+    if status
+      +rollLess({values:`computed::${status} -2`})
+        span(hidden='').fumble-toggle
+      +rollGreater({values:`computed::${status} 4`})
+        span(hidden='').crit-toggle
+    .hexagon__hex-wrapper
+      .hexagon__hex-wrapper__hex-border
+        .hexagon__hex-wrapper__hex-border__hex-content
+          block
+//-End Mixin
+mixin userTemplateFields
+  +allProps({values:`description damage difficulty roll ${[1,2,3,4,5,6].map((num)=>`roll${num}`).join(' ')} header footer character_id system single-roll custom_description status`})
+    h4 {{key}}
+    span {{value}}
+//- End Mixin
+mixin actionQuery(obj)
+  - obj.class = obj.class ? `${obj.class} pseudo-select` : 'pseudo-select';
+  +action(obj)
+    block
+//- End Mixin
+mixin rapidfireCharacterLink
+  +templateConditionalDisplay('character_name')
+    .footer
+      .footer__background.background
+        +templateConditionalDisplay('character_id')
+          h4(tabindex='-1').character_name [{{character_name}}](http://journal.roll20.net/character/{{character_id}})
+        +templateConditionalDisplay('character_id',true)
+          h4(tabindex='-1').character_name {{character_name}}
+      .footer__content
+        +templateConditionalDisplay('character_id')
+          h4.character_name [{{character_name}}](http://journal.roll20.net/character/{{character_id}})
+        +templateConditionalDisplay('character_id',true)
+          h4.character_name {{character_name}}
+      .footer__image
+
+//- End Mixin
+//- @pugdoc
+  name: navButton
+  description: Alias for {@link button} that creates a button element with a type of `action` for use in nav buttons. Spaces in the name are replaced with dashes instead of underscores. The name is prefixed with `nav_`. A {@link trigger} object should be passed
+  arguments:
+  attributes:
+  example: |
+    include _htmlelements.pug
+    +navButton({name:'my button','data-i18n':'action button'})
+mixin navButton(obj)
+  - obj.name = `nav ${obj.name}`;
+  +action(obj)&attributes(attributes)
+    block
+
+//- @pugdoc
+  name: repeating_section
+  description: A mixin that creates a section element with an h2, a space for column headers, and a {@link customcontrolfieldset} which can be styled to fit those column headers. The h2 labels the section via `aria-labelledby`.
+  arguments:
+    - {string} name - The name of the section as per {@link fieldset}. This name will also be added to the section's class list as `repeating-container--NAME`. If no id argument is passed, this is also used as the id of the section.
+    - {string} header - The translation key for the h2 element in the section
+    - {array} columnArr - Array of translation keys to use as column headers. These are added as h5's.
+    - {string} id - An id to use for the section element.
+  attributes:
+  example: |
+    include _htmlelements.pug
+    +repeating_section('attacks','weapons',['name','bonus','damage','property'],'atk')
+      +text({name:'name'})
+      +number({name:'bonus'})
+      +text({name:'damage'})
+      +text({name:'properties'})
+mixin repeating_section({name,header,columnArr,id})
+  section(class=`repeating-container--${name} repeating-container section` id=`${(id||name).replace(/\s+/g,'-')}`)
+    if header
+      h2(data-i18n=header)
+    if columnArr
+      .repeat-columns
+        each head in columnArr
+          h5(data-i18n=head)
+    +customControlFieldset({name})
+      block
+mixin inlineFieldset({name,trigger,addClass})
+  - addClass = addClass ? `${addClass} inline-fieldset` : 'inline-fieldset';
+  - varObjects.inlineFieldsets = varObjects.inlineFieldsets || [];
+  - varObjects.inlineFieldsets.push(name);
+  +customControlFieldset({name,trigger,addClass})
+    block
+mixin inlineFieldsetDetail
+  +radio({name:'display state',class:'display-control',value:'short-display',hidden:''})
+  .inline-fieldset__detail.display-target
+    block
+mixin inlineFieldsetSummary
+  +radio({name:'display state',class:'display-control',value:'display',checked:'',hidden:''})
+  .inline-fieldset__summary.display-target
+    +collapse
+    block

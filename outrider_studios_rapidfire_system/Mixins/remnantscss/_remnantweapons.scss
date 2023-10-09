@@ -1,0 +1,18 @@
+@use '_systemplaceholders.scss';
+#remnant-weapons{
+  @extend %repeat-section-layout;
+  .repeat-columns,
+  .repitem{
+    grid-template-columns:1rem 1fr 5rem 4rem 7rem 8rem 5rem;
+  }
+  .repeat-columns{
+    @each $num in 1,2,3,4,5,6{
+      :nth-child(#{$num}){
+        grid-column:$num + 1;
+      }
+    }
+  }
+  .repitem{
+    @extend %grid;
+  }
+}

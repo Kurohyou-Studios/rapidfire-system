@@ -1,0 +1,44 @@
+@use '../genericcss/_genericplaceholders.scss';
+#stats{
+  grid-template-columns: auto 1fr repeat(2,auto);
+  grid-template-areas:
+    'header header header header'
+    'stat_points . . .'
+    'reserve . . .'
+    '. . . .'
+    'header2 header2 header2 header2'
+  ;
+  h2{
+    grid-area:auto;
+    grid-column:1/-1;
+  }
+  > button{
+    grid-column:2;
+  }
+  @each $point in stat_points,reserve{
+    > .#{$point}{
+      grid-area:$point;
+      justify-self:end;
+    }
+  }
+  > .reserve{
+    box-sizing:border-box;
+  }
+  .equipment{
+    @extend %grid;
+    grid-template-areas: 'header';
+    gap:var(--half-gap);
+    grid-column:1/-1;
+    place-self:stretch;
+    h2{
+      grid-area:header;
+    }
+    .repitem{
+      @extend %grid;
+    }
+    .repeat-columns,
+    .repitem{
+      grid-template-columns: 1fr 2.5rem;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+section#remnant-ratings.stat-grid.section
+  h2(data-i18n='total ratings')
+  each name in remnantRatings
+    - let label = abbreviations[name] || name;
+    - let inputObj = {name,readonly:'',class:'boxed',trigger:remnantRatingTriggers[name]};
+    - let bonusObj = {name:`${name} mod`,class:'boxed',trigger:remnantRatingBonusTriggers[name]};
+    if name === 'situational awareness'
+      +roller({name:'situational awareness',class:'uppercase',role:'heading','aria-level':4,'data-i18n':label,class:'uppercase'})
+    else
+      h4(data-i18n=label)
+    +number(inputObj)
+    +number(bonusObj)
+  +roller({name:'remnant initiative','data-i18n':'initiative',role:'heading','aria-level':4})
+  +number({name:'remnant initiative',readonly:'',class:'boxed',trigger:{calculation:'calcRemnantInitiative'}})
+  +number({name:'remnant initiative mod',class:'boxed',trigger:{affects:['remnant initiative']}})
+  .remnant-skills
+    h2(data-i18n='skills')
+    .repeat-columns 
+      each value in ['skill','level','xp']
+        h5(data-i18n=value)
+    each name in remnantSkills
+      +roller({name:`${name} roll`,'data-i18n':name,role:'heading','aria-level':4})
+      - let levelObj = {name:`${name} level`,class:'underlined',trigger:remnantSkillTriggers[name]};
+      +number(levelObj)
+      +number({name:`${name} experience`,class:'underlined'})

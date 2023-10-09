@@ -1,0 +1,93 @@
+@use '_systemplaceholders.scss';
+//The navigation tab styling for the Roll20 nav-tabs class and the sheet's navigation section.
+.nav-tabs li a{
+  font-family:var(--midHeaderFont);
+  padding:{
+    top: 18px;
+    bottom:15px;
+  };
+  &[data-tab='charsheet']{
+    background-image: url(https://s3.amazonaws.com/files.d20.io/images/259063058/V4Hm27FqfgBujU8bI74Xaw/original.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    padding:{
+      left:50px;
+      right:12px;
+    };
+  }
+}
+#main-nav{
+	display:grid;
+	gap:var(--half-gap);
+  grid-template-columns:1fr auto 1fr;
+	place-items:center;
+	position:sticky;
+	top:60px;
+	background:white;
+	box-shadow:-10px 0 0 0 white,10px 0 0 0 white,0 -6px white;
+	z-index:100;
+  .nav__button--settings{
+    @extend %pictos;
+    &.active,
+    &:hover{
+      @include systemplaceholders.activeTab;
+    }
+  }
+}
+#main{
+  nav{
+    button{
+      border-radius: 5px;
+      padding: var(--half-gap) var(--big-gap);
+      font-style:normal;
+      color:grey;
+      text-align:center;
+      position:relative;
+      transition:{
+        property:color,background-color;
+        duration:var(--revealTime);
+        timing-function:ease;
+      }
+      &:not(.nav__button--settings){
+        text-transform: capitalize;
+      }
+      &:before,
+      &:after{
+        content:'D';
+        font-family:pictos;
+        opacity:0;
+        color:silver;
+        transition:{
+          property:opacity;
+          duration:var(--revealTime);
+          timing-function:ease;
+        }
+      }
+      &:before{
+        transform:rotate(23deg);
+        left: calc((var(--tiny-gap)) / 1);
+        position: absolute;
+      }
+      &:after{
+        transform:rotate(-17deg);
+        right: calc((var(--tiny-gap)) / 1);
+        position: absolute;
+      }
+      &:hover,
+      &.k-active-tab,
+      &.active{
+        @include systemplaceholders.activeTab;
+      }
+      &.active,
+      &.k-active-tab{
+        pointer-events: none;
+      }
+    }
+  }
+}
+
+#npc-nav{
+  display:flex;
+  justify-content:space-evenly;
+  gap:var(--half-gap);
+}

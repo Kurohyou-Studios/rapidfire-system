@@ -1,0 +1,26 @@
+@forward '../genericcss/_genericplaceholders.scss';
+// End Placeholders
+%warbird-article-layout{
+  @extend %grid;
+  gap:var(--big-gap);
+  grid-template-columns:repeat(auto-fill,minmax(350px,1fr));
+}
+%section{
+  --warbirdSectionBorder: 5px solid black;
+  background-color:rgba(255,255,255,0.9);
+  border:var(--warbirdSectionBorder);
+  transition:all var(--focusTiming);
+  &:hover,
+  &:focus-within{
+    background-color:white;
+  }
+}
+@mixin activeTab{
+  color: black;
+  background-color: silver;
+  box-shadow: 0 0 0 var(--half-gap) black inset, var(--grid-gap) 0 0 var(--half-gap) black inset, calc(var(--grid-gap) * -1) 0 0 var(--half-gap) black inset;
+  &:before,
+  &:after{
+    opacity:1;
+  }
+}

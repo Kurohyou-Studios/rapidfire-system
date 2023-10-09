@@ -1,0 +1,33 @@
+@use '../genericcss/_genericplaceholders.scss';
+#skill{
+  @extend %repeat-section-layout;
+  grid-area:skills;
+  .repcontainer{
+    gap:0;
+  }
+  .repitem{
+    @extend %grid;
+    position:relative;
+    span{
+      align-self:center;
+      text-align:left;
+    }
+  }
+  .repeat-columns,
+  .repitem{
+    grid-template-columns:1rem 1fr 3rem 4rem 2.5rem;
+    > input{
+      width:100%;
+    }
+  }
+  .repeat-columns{
+    @each $num in 1,2,3,4{
+      :nth-child(#{$num}){
+        grid-column:$num + 1;
+      }
+    }
+  }
+  .roller.raw{
+    grid-column:span 2;
+  }
+}

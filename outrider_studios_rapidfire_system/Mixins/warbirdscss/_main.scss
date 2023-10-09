@@ -1,0 +1,12 @@
+@use '_systemplaceholders.scss';
+.ui-dialog .tab-content .charsheet{
+  .section{
+    @extend %section;
+  }
+  .structure-display-control:checked ~ *{
+    display:none;
+  }
+  .structure-check-control:checked + *{
+    @include systemplaceholders.selectedLabel;
+  }
+}

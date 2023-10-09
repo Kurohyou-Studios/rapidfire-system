@@ -1,0 +1,12 @@
+@use '../genericcss/_genericplaceholders.scss';
+#secondary{
+  > .secondaries{
+    @extend %grid;
+    grid-template-columns:1fr repeat(3,auto);
+    grid-template-areas:'header header header header';
+  }
+  > .combat-gear{
+    @extend %grid;
+    grid-template-areas:'header';
+  }
+}

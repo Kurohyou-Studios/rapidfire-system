@@ -1,0 +1,36 @@
+//-Rolltemplate definitions
++rolltemplate(templateName)
+  .image-background
+  div(class=`template ${name} system-{{system}}`).section
+    h3.header {{header}}
+    +characterLink
+
+    h4(data-i18n='roll').row-label
+    span.row-roll
+      |{{roll}}
+    
+    each num in [1,2,3,4,5,6]
+      +templateConditionalDisplay(`roll${num}`)
+        h4(data-i18n='roll').row-label
+        span.row-roll
+          |{{roll#{num}}}
+    +templateConditionalDisplay('difficulty')
+      h4(data-i18n='difficulty').row-label
+      span.row-roll
+        |{{difficulty}}
+    +templateConditionalDisplay('damage')
+        +templateConditionalDisplay('damage_label')
+          h4.row-label {{computed::damage_label}}
+        +templateConditionalDisplay('damage_label',true)
+          h4.row-label(data-i18n='damage')
+        span.row-roll
+          |{{computed::damage}}
+    +templateConditionalDisplay('description')
+      .description.text
+        h4(data-i18n='notes')
+        span {{description}}
+        +userTemplateFields
+    +templateConditionalDisplay('description',true)
+      +templateConditionalDisplay('custom_description')
+        .description.text
+          +userTemplateFields

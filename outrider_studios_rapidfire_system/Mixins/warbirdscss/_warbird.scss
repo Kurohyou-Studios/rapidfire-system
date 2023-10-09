@@ -1,0 +1,26 @@
+@use '_systemplaceholders.scss';
+#warbird{
+  @extend %warbird-article-layout;
+  grid-template-areas:
+    "image"
+  ;
+  grid-template-rows:repeat(2,auto) 1fr;
+  background:{
+    image:url(https://s3.amazonaws.com/files.d20.io/images/270587778/2qS0P_LxUgrRoc1eKjcfLA/original.jpg);
+    repeat:repeat-y;
+    size:100% auto;
+  }
+}
+#warbird-pic{
+  grid-area:image;
+  >.input-label{
+    justify-self:start;
+  }
+  .image-container{
+    place-items:center;
+    margin:0 calc(var(--half-gap) * -1) calc(var(--half-gap) * -1);
+    padding: var(--half-gap);
+    background-color:white;
+    border-top:var(--warbirdSectionBorder);
+  }
+}

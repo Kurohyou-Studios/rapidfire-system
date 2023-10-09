@@ -1,0 +1,11 @@
++repeating_section({
+  name:'specialty',
+  header:'specialty',
+  columnArr:['name'],
+  id:'remnant-specialty'
+})
+  +checkbox({name:'collapse',class:'collapse'})
+  +text({name:'name',class:'underlined'})
+  .headed-textarea.description.expanded
+    h5(data-i18n='description')
+    +adaptiveTextarea({name:'description',class:'underlined'})

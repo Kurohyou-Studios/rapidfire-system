@@ -1,0 +1,23 @@
+section#remnant-weapons.repeating-container.repeating-container--remnant-weapons.section
+  h2(data-i18n='weapons')
+  .repeat-columns 
+    each name in remnantWeaponInputs
+      h5(data-i18n=name)
+  +customControlFieldset({name:'remnant weapon'})
+    +checkbox({name:'collapse',class:'collapse'})
+    +roller({name:'roll'})
+    +text({name:'name',class:'underlined',role:'heading','aria-level':4})
+    +select({name:'skill',class:'underlined'})
+      +option({value:' ','data-i18n':'select',selected:'',trigger:{affects:['repeating_remnant-weapon_$x_damage']}})
+      +option({value:'assault','data-i18n':'assault'})
+      +option({value:'strike','data-i18n':'strike'})
+    +number({name:'bonus',class:'underlined'})
+    .roll-plus
+      +span({'data-i18n':'lead'})
+      span.plus +
+      +number({name:'damage',class:'underlined',readonly:'',trigger:{calculation:'calcRemnantDamage'}})
+    +number({name:'damage bonus',class:'underlined damage-bonus',trigger:{affects:['repeating_remnant-weapon_$x_damage']}})
+    +text({name:'type',class:'underlined'})
+    .headed-textarea.description.expanded
+      h5(data-i18n='notes')
+      +adaptiveTextarea({name:'notes',class:'underlined'})

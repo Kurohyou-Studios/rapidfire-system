@@ -1,0 +1,37 @@
+include k-scaffold
+include Mixins/_Sheet Mixins.pug
+- let templateName = 'rapidfire';
+- const system = 'warbirds';
++hidden({name:'collapsed',value:''})
++hidden({name:'system',value:'remnants'})
+main#main.subsystem-style.system-warbirds
+  +hidden({name:'sheet_state',value:'settings',class:'sheet-state'})
+  h1(data-i18n='warbirds' class='system-header')
+  nav#main-nav.subsystem-style.system-warbirds
+    each name in ['character','npc','large vehicle']
+      +navButton({name,'data-i18n':name,class:`nav__button nav__button--tab nav__button--tab--left ${name.replace(/\s+/g,'-')}`,role:'heading','aria-level':4,trigger:{listenerFunc:'navigateSheet'}})
+    +navButton({name:'settings',class:'active nav__button nav__button--settings settings',trigger:{listenerFunc:'navigateSheet'}})
+      |y
+    +navButton({name:'warbird','data-i18n':'warbird',class:'nav__button nav__button--tab nav__button--tab--right warbird subsystem-display active-system warbirds',role:'heading','aria-level':4,trigger:{listenerFunc:'navigateSheet'}})
+    +navButton({name:'npc warbird','data-i18n':'warbird',class:'nav__button nav__button--tab nav__button--tab--right npc-warbird subsystem-display active-system warbirds',role:'heading','aria-level':4,trigger:{listenerFunc:'navigateSheet'}})
+  include articles/settings/_settings.pug
+  include articles/character/_character_warbirds.pug
+  include articles/warbird/_warbird.pug
+  include articles/largevehicle/_largevehicle.pug
+  include articles/npc/_npc.pug
+include rolltemplates/_warbirds.pug
++hidden({name:'template_start',value:`&{template:${templateName}} {{character_name=@{character_name}}} {{character_id=@{character_id}}} {{system=@{system}}}`})
++kscript('warbirds')
+  //- All additional javascript files should start here
+  include Javascript/warbirds/variables.js
+
+  include Javascript/genericjs/setupfunctions.js
+  include Javascript/genericjs/clickfunctions.js
+  include Javascript/genericjs/initialchangefunctions.js
+  include Javascript/genericjs/triggeredfunctions.js
+  include Javascript/genericjs/calculators.js
+
+  include Javascript/warbirds/rollfunctions.js
+  include Javascript/warbirds/calculators.js
+  include Javascript/warbirds/triggeredfunctions.js
+  include Javascript/warbirds/updaters.js

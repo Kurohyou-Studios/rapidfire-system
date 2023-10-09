@@ -1,0 +1,12 @@
++repeating_section({
+  name:'trait',
+  header: 'warbird traits',
+  columnArr: ['name','effects'],
+  id:'warbird-trait'
+})
+  +checkbox({name:'collapse',class:'collapse',value:'1'})
+  +text({name:'name',class:'underlined'})
+  +text({name:'effects',class:'underlined'})
+  .headed-textarea.description.expanded
+    h5(data-i18n='description')
+    +adaptiveTextarea({name:'description',class:'underlined'})

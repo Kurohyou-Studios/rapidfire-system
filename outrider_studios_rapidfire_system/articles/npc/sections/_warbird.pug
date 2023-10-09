@@ -1,0 +1,80 @@
+section(data-i18n-aria-label='character name').flex-box.half-gap
+  +text({name:'character name',role:'heading','aria-level':2})
+    +input-label({
+      inputObj:{name:'situational awareness',type:'number',class:'underlined'},
+      spanObj:{'data-i18n':'sa',class:'uppercase'}
+    })
+section(data-i18n-aria-label='initiative').flex-box.half-gap
+  +roller({name:'warbird initiative','data-i18n':'initiative',role:'heading','aria-level':4})
+  +select({name:'warbird initiative skill',class:'underlined',trigger:{affects:['warbird_initiative']}})
+    +option({value:'ask','data-i18n':'ask'})
+    each name in ['dogfighting','strafing']
+      - const optObj = {value:name,'data-i18n':name};
+      if name === 'dogfighting'
+        - optObj.selected = '';
+      +option(optObj)
+  +text({name:'warbird initiative',readonly:'',class:'boxed number',trigger:{type:'number',calculation:'calcWarbirdInitiative'}})
+section(data-i18n-aria-label='warbird stats').flex-box.half-gap
+  each name in ['performance','armour']
+    +input-label({
+      inputObj:{name,type:'number',class:'underlined'},
+      spanObj:{'data-i18n':name,class:'capitalize'}
+    })
+  .flex-box.half-gap
+    label(data-i18n='structure' for="npc-structure")
+    .boxed
+      +number({name:'structure',id:'npc-structure'})
+      span.slash /
+      +number({name:'structure base'})
+section(data-i18n-aria-label='pilot skills').flex-box.half-gap
+  each name in ['dogfighting','strafing']
+    +input-label({
+      inputObj:{name,type:'number',class:'underlined',
+        trigger:{
+          affects:['warbird_initiative']
+        }
+      },
+      spanObj:{'data-i18n':name,class:'capitalize'}
+    })
+section(data-i18n-aria-label='defence').flex-box.half-gap.defense
+  h4(data-i18n='defence')
+  each name in ['break','shoot','escape']
+    +input-label({
+      inputObj:{name:`${name} defence`,type:'number',class:'underlined'},
+      spanObj:{'data-i18n':name,class:'capitalize'}
+    })
+section(data-i18n-aria-label='attacks')
+  .flex-box.half-gap.gunnery
+    +roller({
+      name:'npc gunnery',
+      'data-i18n':'gunnery',
+      role:'heading',
+      'aria-level':4,
+      trigger:{triggeredFuncs:['npcAttack']}
+    })
+    span(data-i18n='1d6')
+    span +
+    +number({name:'npc gunnery',value:'2',class:'boxed'})
+    span(data-i18n='lead')
+    span +
+    +number({name:'npc gunnery damage',class:'boxed'})
+  .flex-box.half-gap.ordinance.collapse-container
+    .expanded.flex-box.half-gap
+      +roller({
+        name:'npc ordinance',
+        'data-i18n':'ordinance',
+        role:'heading',
+        'aria-level':4,
+        trigger:{triggeredFuncs:['npcAttack']}
+      })
+      span(data-i18n='1d6')
+      span +
+      +number({name:'npc ordinance',value:'2',class:'boxed'})
+      span(data-i18n='lead')
+      span +
+      +number({name:'npc ordinance damage',class:'boxed'})
++track('structure track','structure',{affects:['break_defence']})
+
+
+
+

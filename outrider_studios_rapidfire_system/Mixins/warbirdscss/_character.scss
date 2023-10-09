@@ -1,0 +1,16 @@
+@use '_systemplaceholders.scss';
+// Character styling
+#character{
+  @extend %warbird-article-layout;
+  grid-template-rows:repeat(2,auto) 1fr;
+  grid-template-areas:
+    "."
+    "skills"
+    "skills"
+  ;
+  background:{
+    image:url(https://s3.amazonaws.com/files.d20.io/images/270587779/zS4dSe7YaA4lBn_q-9qQDw/original.jpg);
+    repeat:repeat-y;
+    size:100% auto;
+  }
+}

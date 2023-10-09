@@ -1,0 +1,29 @@
+@use '../genericcss/_genericplaceholders.scss';
+#weapon{
+  @extend %repeat-section-layout;
+  input[type='text']{
+    width:100%;
+  }
+  .repitem{
+    @extend %grid;
+    row-gap:var(--half-gap);
+    > .underlined{
+      width:100%;
+    }
+  }
+  .repeat-columns,
+  .repitem{
+    grid-template-columns:1rem 1fr 10rem 7rem;
+    align-items:end;
+  }
+  .repeat-columns{
+    @each $num in 1,2,3{
+      :nth-child(#{$num}){
+        grid-column:$num + 1;
+      }
+    }
+  }
+  .headed-textarea{
+    grid-column:1/-1;
+  }
+}

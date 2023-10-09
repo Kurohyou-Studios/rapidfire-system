@@ -1,0 +1,4 @@
+@use '_systemplaceholders.scss';
+#remnant-specialty{
+  @extend %repeat-section-layout;
+}

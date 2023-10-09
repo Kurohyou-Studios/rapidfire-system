@@ -1,0 +1,42 @@
+section#warbird-weapons.repeating-container.repeating-container--warbird-weapons.section
+  h2(data-i18n='weapons')
+  +customControlFieldset({name:'warbird weapon'})
+    +checkbox({name:'collapse',class:'collapse',value:'1'})
+    +roller({name:'roll'})
+    +input-label({
+      label:'type',
+      inputObj: {name:'name',value:'',type:'text',role:'heading','aria-level':4,class:'underlined'},
+      divObj: {class:'type'},
+      spanObj: {role:'heading','aria-level':5}})
+    +select-label({
+      label: 'skill',
+      inputObj: {name:'skill',class:'underlined skill'},
+      spanObj: {role:'heading','aria-level':5}
+    })
+      +option({value:' ','data-i18n':'select',selected:'',trigger:{affects:['repeating_warbird-weapon_$x_damage']}})
+      +option({value:'gunnery','data-i18n':'gunnery'})
+      +option({value:'ordinance','data-i18n':'ordinance'})
+    +dual-input-label({
+      label: 'accuracy',
+      inputArr: [{name:'accuracy',type:'number',class:'underlined'},{name:'accuracy bonus',type:'number',class:'underlined'}],
+      divObj: {class:'accuracy'},
+      spanObj: {role:'heading','aria-level':5},
+      separator:'+'
+    })
+    .input-label.input-label--dual
+      .roll-plus
+        +span({'data-i18n':'lead'})
+        span.plus +
+        +number({name:'damage',class:'underlined input-label__input',trigger:{calculation:'calcVehicleDamage'}})
+      span.input-label--dual__spacer/
+      +number({name:'damage bonus',class:'underlined',trigger:{affects:['repeating_warbird-weapon_$x_damage']}})
+    .input-label.ammo
+      h5(data-i18n="ammunition")
+      +checkbox({name:'skill',value:'ordinance',hidden:'',class:'ammo-display-control'})
+      .ammo-tracker.fill-left
+        +radio({name:'ammo',value:0,checked:'',class:'fill-left__clearer fill-left__dot'})
+        each num in [...Array(20).keys()].map(k => k + 1)
+          +radio({name:'ammo',value:num,class:'fill-left__dot fill-left__radio'})
+    .headed-textarea.description.expanded
+      h5(data-i18n='notes')
+      +adaptiveTextarea({name:'notes',class:'underlined'})

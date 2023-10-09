@@ -1,0 +1,12 @@
+@use '_systemplaceholders.scss';
+#warbird-trait{
+  @extend %repeat-section-layout;
+  grid-row-end:span 2;
+  .repeat-columns,
+  .repitem{
+    grid-template-columns:2fr 3fr;
+  }
+  .repitem{
+    @extend %grid;
+  }
+}

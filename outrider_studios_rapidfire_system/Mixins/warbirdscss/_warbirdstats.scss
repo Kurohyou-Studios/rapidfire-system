@@ -1,0 +1,16 @@
+@use '_systemplaceholders.scss';
+#warbird-stats{
+  @extend %grid;
+  grid-template-columns:1fr repeat(2,auto) 1fr repeat(2,auto);
+  grid-template-areas:
+    'header header header header header header'
+  ;
+  @each $field in strike_damage,strike_range,assault_damage{
+    .#{$field}_label{
+      grid-area:#{$field}_label;
+    }
+    .#{$field}_input{
+      grid-area:#{$field}_input;
+    }
+  }
+}

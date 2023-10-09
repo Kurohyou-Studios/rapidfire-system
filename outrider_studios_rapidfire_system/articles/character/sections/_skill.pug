@@ -1,0 +1,16 @@
++repeating_section({
+  name: 'skill',
+  header: 'skills',
+  columnArr: ['skills','level','stat','xp']
+})
+  +checkbox({name:'raw',hidden:'',class:'raw-control',value:1})
+  +roller({name:'roll',class:'raw'})
+    +span({name:'name','data-i18n-dynamic':'',role:'heading','aria-level':5})
+  +roller({name:'roll',class:'custom'})
+  +text({name:'name',role:'heading','aria-level':5,class:'custom underlined'})
+  +number({name:'level',class:'underlined',trigger:{triggeredFuncs:['skillEffects']}})
+  +select({name:'stat',class:'underlined'})
+    +option({value:'query','data-i18n':'ask',selected:'',trigger:{triggeredFuncs:['skillEffects']}})
+    each value in stats
+      +option({value,'data-i18n':value})
+  +number({name:'xp',class:'underlined'})

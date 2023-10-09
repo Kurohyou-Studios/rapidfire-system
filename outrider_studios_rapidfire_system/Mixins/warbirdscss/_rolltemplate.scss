@@ -1,0 +1,115 @@
+@use '_systemplaceholders.scss';
+@use '../genericcss/_genericplaceholders.scss';
+/*
+Roll Template
+#rolltemplate
+*/
+.sheet-rolltemplate-rapidfire{
+  @extend %font-vars;
+	--templateRadius: 1rem;
+	--dieSize: 50px;
+	--templateBorderW: 2px 5px 2px 5px;
+	--fumbleColor: red;
+	--critColor: green;
+	--innerBorderRadius: 5px;
+	--borderSize:1px;
+  --sizeFactor: 6;
+  --cornerSize: calc(1107px / var(--sizeFactor)) calc(952px / var(--sizeFactor));
+  --headSideMargin:40px;
+  --headVerticalMargin:10px;
+  --circleSize:73px;
+  --hexagonBackgroundImage:url('https://s3.amazonaws.com/files.d20.io/images/258492885/gzYgspdnfa8K2zUgTrgV3g/original.png');
+  display:grid;
+  grid-template-areas: "content";
+  @extend %defaultStyles;
+  > *{
+    grid-area:content;
+  }
+	&:not(:first-child){//Moves the template to accomodate the sender tag
+		margin-top:10px;
+	}
+  .sheet-image-background{
+    @extend %baseSection;
+    background-color: white;
+    background: {
+      image: url(https://s3.amazonaws.com/files.d20.io/images/270587779/zS4dSe7YaA4lBn_q-9qQDw/original.jpg);
+      position: right;
+      repeat: repeat-x;
+      attachment: fixed;
+      size: auto 100%;
+    };
+  }
+  @media (prefers-reduced-motion){
+    .sheet-image-background{
+      background: {
+        position: center;
+        repeat: no-repeat;
+        size: auto;
+      }
+    }
+  }
+	> .sheet-template{
+    @extend %baseSection;
+    @extend %section;
+    background-color: color-mix(in lch,white 65%,transparent) !important;
+    display:grid;
+    grid-template-columns: 1fr minmax(auto,0.5fr);
+    gap:var(--half-gap);
+    a[href^='!'],
+    a[href^='~'],
+    a{
+      font-family: var(--topHeaderFont);
+      background-color: transparent;
+      color: black;
+      font-weight: 700;
+      padding: 0;
+    }
+    h1,h2,h3,h4,h5,a{
+      white-space: pre-wrap;
+    }
+		span:not(.inlinerollresult){
+			font-size:13px;
+		}
+    .sheet-header,
+    .sheet-character_name,
+    .sheet-description{
+      grid-column: 1 / -1;
+    }
+    .sheet-row-label{
+      grid-column: 1;
+      place-self:center start;
+      font-family: var(--topHeaderFont);
+    }
+    .sheet-row-roll{
+      grid-column: 2;
+      place-self: start center;
+    }
+    .sheet-roll,
+    .inlinerollresult{
+      font-size:150%;
+      color: black;
+      font-weight:700;
+      font-family: var(--topHeaderFont);
+      &[title*="[computed value]"],
+      &[original-title*="[computed value]"]{
+        pointer-events: none;
+      }
+      &,
+      &.fullcrit,
+      &.fullfail,
+      &.importantroll{
+        border: none;
+        background-color: transparent;
+      }
+      &.fullcrit{
+        color: var(--critColor);
+      }
+      &.fullfail{
+        color: var(--fumbleColor);
+      }
+      &.importantroll{
+        color: black;
+      }
+    }
+	}
+}

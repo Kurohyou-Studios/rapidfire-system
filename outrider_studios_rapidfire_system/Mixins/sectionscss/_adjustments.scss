@@ -1,0 +1,14 @@
+@use '../genericcss/_genericplaceholders.scss';
+#adjustments{
+  display:contents;
+  .repitem{
+    @extend %grid;
+    gap:var(--half-gap);
+  }
+  input[type='text']{
+    width:100%;
+  }
+  .subsection{
+    @extend %repeat-section-layout;
+  }
+}

@@ -1,0 +1,25 @@
+@use '../genericcss/_genericplaceholders.scss';
+.ui-dialog .tab-content .charsheet{
+  .system-header{
+    margin:0 auto;
+    width:200px;
+  }
+  article{
+    padding:var(--grid-gap);
+  }
+  article:not(.active){
+    display:none;
+  }
+  .roller{
+    @extend %roller;
+  }
+  .translate-control{
+    &:checked ~ .untranslated,
+    &:not(:checked) ~ .translated{
+      display:none;
+    }
+  }
+  .section{
+    @extend %baseSection;
+  }
+}

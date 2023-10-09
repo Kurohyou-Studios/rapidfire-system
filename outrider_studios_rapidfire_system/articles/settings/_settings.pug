@@ -1,0 +1,41 @@
+article#settings.subsystem-style.system-remnant.settings.active.navigable-section
+  section#system-behavior.section
+    +input-label({
+      label:'difficulty automation',
+      inputObj:{name:'difficulty',value:'1',checked:'',class:'box',type:'checkbox'},
+      spanObj:{role:'heading','aria-level':4}
+    })
+    +select-label({
+      label:'action penalty automation',
+      inputObj:{name:'action penalty automation',class:'underlined'},
+      spanObj:{role:'heading','aria-level':4}
+    })
+      each value,index in ['disabled','ask','use input']
+        - let optObj = {value,'data-i18n':value};
+        if index === 0
+          - optObj.selected = '';
+          - optObj.trigger = {affects:['defence']}
+        +option({value,'data-i18n':value})
+    +select-label({
+      label:'sheet type',
+      inputObj:{name:'sheet type',class:'underlined',trigger:{triggeredFuncs:['displayCharacterTypeSections']}},
+      spanObj:{role:'heading','aria-level':4}
+    })
+      -
+        const typeOptions = system === 'warbirds' ?
+          ['character','npc','large vehicle'] :
+          ['character','npc'];
+      each value,index in typeOptions
+        - const optObj = {value,'data-i18n':value};
+        if index === 0
+          - optObj.selected = '';
+        +option(optObj)
+  section#sheet-behavior.section
+    +select-label({
+      label:'whisper rolls to gm',
+      inputObj: {name:'whisper',class:'underlined'},
+      spanObj: {role:'heading','aria-level':4}
+    })
+      +option({value:' ','data-i18n':'never',selected:''})
+      +option({value:'/w gm ','data-i18n':'always'})
+      +option({value:'?{Whisper|No, |Yes,/w gm }','data-i18n':'ask'})

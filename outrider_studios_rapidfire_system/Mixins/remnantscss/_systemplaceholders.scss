@@ -1,0 +1,34 @@
+@forward '../genericcss/_genericplaceholders.scss';
+@mixin activeTab{
+  --tabBorder:drop-shadow(1px 0 0 black) drop-shadow(-1px 0 0 black) drop-shadow(0 -1px 0 black);
+  top:1px;
+  color:black;
+}
+@mixin wideDrone{
+  grid-column:span 2;
+  .repcontainer{
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    align-items:start;
+  }
+}
+%hex-base{
+  @extend %grid;
+  overflow:hidden;
+  grid-template-areas:'content';
+}
+%hex-component{
+  @extend %hex-base;
+  width:100%;
+  height:100%;
+  grid-area:content;
+}
+%hex-rotate{
+  @extend %hex-component;
+  transform:rotate(-60deg);
+}
+%hex-shape{
+  box-sizing:border-box;
+  content:'';
+  box-shadow:0 0 0 1px black inset, 0 0 4px #ffffff inset;
+}
+// End Placeholders

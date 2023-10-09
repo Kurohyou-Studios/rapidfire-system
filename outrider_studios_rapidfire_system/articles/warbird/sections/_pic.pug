@@ -1,0 +1,11 @@
+section#warbird-pic.section
+  +track('structure track','structure',{affects:['break_defence']})
+  .image-container.warbird-nose
+    +input-label({
+      label: 'image prompt',
+      inputObj: {name:'warbird nose',type:'text',class:'boxed',value:'https://s3.amazonaws.com/files.d20.io/images/270598775/-4fyt16JZqo_JLLhKpGeCQ/original.jpg',trigger:{triggeredFuncs:['imageInput']}},
+      divObj: {class:'image-container__input stacked'},
+      spanObj: {role:'heading','aria-level':5}
+    })
+    +action({name:'warbird nose',class:'image-container__button',trigger:{listenerFunc:'toggleImageInput'}})
+      +img({name:'warbird nose',class:'image-container__image',src:'https://s3.amazonaws.com/files.d20.io/images/270598775/-4fyt16JZqo_JLLhKpGeCQ/original.jpg'})

@@ -1,0 +1,20 @@
+section#remnant-stats.stat-grid.section
+  h2(data-i18n='remnant stats')
+  each name in remnantStats
+    if name === 'structure'
+      .input-label.span-all.structure
+        label(data-i18n='structure' for='structure' role='heading' aria-level=4)
+        .boxed.span-2
+          +number({name:'structure',id:'structure',trigger:{affects:['remnant_defence'],calculation:'totalHealth',initialFunc:'syncHealth'}})
+          span.slash /
+          +hidden({name:'structure max',value:5,trigger:{affects:['remnant_defence'],triggeredFuncs:['calcHealth']}})
+          +number({name:'structure base',value:5,trigger:{affects:['structure_max']}})
+    else
+      label(data-i18n=name for=replaceSpaces(name) role='heading' aria-level=4).span-2
+      - let inputObj = {name,class:'boxed',type:'number',id:replaceSpaces(name),trigger:remnantStatTriggers[name]};
+      +number(inputObj)
+  each name in remnantCombatStats
+    - let inputObj = {name,class:`boxed ${replaceSpaces(name)}_input`,type:'number',id:replaceSpaces(name),trigger:remnantCombatStatTriggers[name]};
+    label(data-i18n=name role='heading' aria-level=4 for=replaceSpaces(name) class=`${replaceSpaces(name)}_label`)
+    !=`<!-- inputObj: ${JSON.stringify(inputObj)}-->`
+    +input(inputObj)

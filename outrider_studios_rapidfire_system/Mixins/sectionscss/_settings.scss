@@ -1,0 +1,16 @@
+@use '../genericcss/_genericplaceholders.scss';
+// Settings Styling
+#settings{
+  @extend %article-layout;
+  .input-label{
+    justify-content: space-between;
+    [name]:not([type=number], [type=checkbox], [type=radio]){
+      width:auto;
+      flex: 0 0 auto;
+    }
+  }
+  section{
+    align-self:stretch;
+    align-content:start;
+  }
+}

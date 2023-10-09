@@ -1,0 +1,15 @@
+//- Remnants Variables
+- const combatGear = ['armour bonus','shield bonus','action penalty'];
+-
+  const combatGearTriggers = {
+    'armour bonus':{affects:['resist']},
+    'shield bonus':{affects:['defence']},
+    'action penalty':{triggeredFuncs:['validateActionPenalty'],affects:['defence']}
+  };
+article#character.character.navigable-section
+  include sections/_info.pug
+  include sections/_stats.pug
+  include sections/_secondary.pug
+  include sections/_skill.pug
+  include sections/_adjustments.pug
+  include sections/_weapons.pug

@@ -1,0 +1,33 @@
+- const warbirdStats = ['performance','armour','break defence','shoot defence','escape defence','stunt','structure'];
+-
+  const warbirdStatTriggers = {
+    performance:{affects:['break_defence']},
+    'break defence':{affects:['shoot_defence','escape_defence'],calculation:'calcWarbirdDefence'},
+    'shoot defence':{calculation:'calcWarbirdDefence'},
+    'escape defence':{calculation:'calcWarbirdDefence'},
+    stunt:{calculation:'calcWarbirdStunt'}
+  };
+section#warbird-stats.stat-grid.section
+  h2(data-i18n='warbird stats')
+  each name in warbirdStats
+    if /break/.test(name)
+      h3(data-i18n='defences').span-all.center
+    if name === 'structure'
+      .input-label.span-all.structure
+        label(data-i18n='structure' for='structure' role='heading' aria-level=4)
+        .boxed.span-2
+          +number({name:'structure',id:'structure',trigger:{calculation:'totalHealth',initialFunc:'syncHealth'}})
+          span.slash /
+          +hidden({name:'structure max',value:5,trigger:{triggeredFuncs:['calcHealth']}})
+          +number({name:'structure base',value:5,trigger:{affects:['structure_max']}})
+    else
+      - let inputObj = {name,class:'boxed',readonly:'',id:replaceSpaces(name),trigger:warbirdStatTriggers[name]}; 
+      - let bonusObj = {name:`${name} bonus`,class:'boxed',trigger:{affects:[`${replaceSpaces(name)}`]}};
+      if name === 'stunt'
+        +roller({name,'data-i18n':name,role:'heading','aria-level':4,trigger:{listenerFunc:'initiateRoll'}})
+      else
+        label(data-i18n=name.replace(/ defence/,'') for=replaceSpaces(name) role='heading' aria-level=4)
+        if /defence/.test(name)
+          - inputObj.readonly = '';
+      +number(inputObj)
+      +number(bonusObj)

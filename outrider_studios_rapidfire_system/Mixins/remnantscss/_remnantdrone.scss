@@ -1,0 +1,37 @@
+@use '_systemplaceholders.scss';
+#remnant-drone{
+  @extend %repeat-section-layout;
+  .repitem{
+    @extend %grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:var(--tiny-gap) var(--half-gap);
+    border-bottom:1px dashed black;
+    padding-bottom:var(--grid-gap);
+  }
+  .input-label--button{
+    grid-column:1;
+  }
+  .strikerange{
+    grid-column:2;
+  }
+  .input-label{
+    span,button{
+      text-align:left;
+    }
+    &:not(.input-label--dual){
+      :not([name]){
+        flex:1 1 0;
+      }
+    }
+  }
+  .structure{
+    display:flex;
+    gap:var(--half-gap);
+    grid-column:1/-1;
+    place-self:center end;
+    grid-column:span 2;
+    *{
+      align-self:center;
+    }
+  }
+}

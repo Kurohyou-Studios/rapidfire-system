@@ -1,0 +1,11 @@
+@use '_systemplaceholders.scss';
+#remnant-trait{
+  @extend %repeat-section-layout;
+  .repeat-columns,
+  .repitem{
+    grid-template-columns:1fr 4rem 4rem;
+  }
+  .repitem{
+    @extend %grid;
+  }
+}

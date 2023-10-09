@@ -1,0 +1,10 @@
+@use '../genericcss/_genericplaceholders.scss';
+#character-info{
+  @extend %repeat-section-layout;
+  > .health-track{
+    margin:0 -5px;
+  }
+}
+.sheet-darkmode #character-info{
+  --darkVar:var(--dark-surface1)
+}

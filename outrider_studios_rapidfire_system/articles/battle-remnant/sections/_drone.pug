@@ -1,0 +1,30 @@
+section#remnant-drone.repeating-container.repeating-container--drone.section
+  h2(data-i18n='drones')
+  +customControlFieldset({name:'drone'})
+    +checkbox({name:'collapse',class:'collapse'})
+    +text({name:'name',class:'underlined remnant-drone__name',role:'heading','aria-level':3})
+    +input-label('# active',{name:'active',type:'number',class:'boxed'},null,{role:'heading','aria-level':5,'data-i18n':label,'data-i18n':'# active'})
+    each name in droneStats
+      - let label = abbreviations[name] || name;
+      if /^(?:strike|assault)/.test(label)
+        - let hiddenName = /strike/.test(label) ? 'strike' : 'assault';
+        +hidden({name:hiddenName,type:'number',class:`underlined expanded--empty`})
+      if /^(?:strike|assault)$/.test(name)
+        - let inputObj = {name,type:'number',class:`boxed`};
+        if name === 'strike'
+          - inputObj.trigger = {affects:['repeating_drone_$x_strikerange']};
+        +roller-label(inputObj,{name,role:'heading','aria-level':5,'data-i18n':label},{class:`${replaceSpaces(name)}`})
+      else if name === 'struct'
+        .structure
+          +span({role:'heading','aria-level':5,'data-i18n':label})
+          .boxed.span-2
+            +number({name:'struct'})
+            span.slash /
+            +number({name:'struct max'})
+      else if name=== 'strikerange'
+        +input-label(label,{name,type:'number',class:`boxed`,readonly:'',trigger:{calculation:'calcStrikeRange'}},{class:replaceSpaces(name)},{role:'heading','aria-level':5,'data-i18n':label})
+      else
+        +input-label(label,{name,type:'number',class:`boxed`},{class:replaceSpaces(name)},{role:'heading','aria-level':5,'data-i18n':label})
+    .headed-textarea.description.expanded
+      h5(data-i18n='description')
+      +adaptiveTextarea({name:'description',class:'underlined'})

@@ -1,0 +1,55 @@
+- const warbirdRatings = ['situational awareness'];//Strafing, Gunnery, and Ordinance will be totalled slightly differently here than on paper sheet
+-
+  const warbirdRatingTriggers = {
+    'situational awareness':{affects:['warbird_initiative','warbird_defence'],calculation:'calcSA'},
+  };
+-
+  const warbirdRatingBonusTriggers = {
+    'situational awareness':{affects:['situational_awareness']},
+    'warbird defence':{affects:['warbird_defence']}
+  };
+- const warbirdSkills = ['piloting','strafing','gunnery','ordinance'];
+-
+  const warbirdSkillTriggers = {
+    piloting:{affects:['dogfighting_rating','break_defence','stunt']},
+    strafing:{affects:['strafing_rating']},
+    gunnery:{affects:['gunnery_rating']},
+    ordinance:{affects:['ordinance_rating']}
+
+  };
+section#warbird-ratings.stat-grid.section
+  h2(data-i18n='total ratings')
+  each name in warbirdRatings
+    - let label = abbreviations[name] || name;
+    - let inputObj = {name,readonly:'',class:'boxed',trigger:warbirdRatingTriggers[name]};
+    - let bonusObj = {name:`${name} mod`,class:'boxed',trigger:warbirdRatingBonusTriggers[name]};
+    - let rollObj = {name,role:'heading','aria-level':4,'data-i18n':label,class:'span-2'};
+    if name === 'situational awareness'
+      - rollObj.class += ' uppercase';
+    else
+      - inputObj.name === `${inputObj.name} rating`;
+    +roller(rollObj)
+    +number(inputObj)
+    +number(bonusObj)
+  +roller({name:'warbird initiative','data-i18n':'initiative',role:'heading','aria-level':4})
+  +select({name:'warbird initiative skill',class:'underlined'})
+    +option({value:'ask','data-i18n':'ask',trigger:{affects:['warbird_initiative']}})
+    each name in warbirdSkills
+      - const optObj = {value:name,'data-i18n':name};
+      if name === 'piloting'
+        - optObj.selected = '';
+      +option(optObj)
+  +text({name:'warbird initiative',readonly:'',class:'boxed number',trigger:{type:'number',calculation:'calcWarbirdInitiative'}})
+  +number({name:'warbird initiative mod',class:'boxed',trigger:{affects:['warbird initiative']}})
+  .warbird-skills
+    h2(data-i18n='skills')
+    .repeat-columns
+      each value in ['skill','level','xp']
+        h5(data-i18n=value)
+    each name in warbirdSkills
+      +roller({name:`${name} roll`,'data-i18n':name,role:'heading','aria-level':4})
+      - let levelObj = {name:`${name} level`,class:'underlined',trigger:warbirdSkillTriggers[name]};
+      - levelObj.trigger.affects = levelObj.trigger.affects || [];
+      - levelObj.trigger.affects.push('warbird_initiative');
+      +number(levelObj)
+      +number({name:`${name} experience`,class:'underlined'})

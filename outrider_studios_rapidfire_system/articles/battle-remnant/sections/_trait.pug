@@ -1,0 +1,13 @@
++repeating_section({
+  name:'trait',
+  header:'traits',
+  columnAr:['name','duress','focus'],
+  id:'remnant-trait'
+})
+  +checkbox({name:'collapse',class:'collapse'})
+  +text({name:'name',class:'underlined'})
+  +number({name:'duress',class:'underlined'})
+  +number({name:'focus',class:'underlined'})
+  .headed-textarea.description.expanded
+    h5(data-i18n='description')
+    +adaptiveTextarea({name:'description',class:'underlined'})

@@ -1,0 +1,54 @@
+section#stats.stat-grid.section.repeating-container
+  h2(data-i18n='stats')
+  +input-label({
+    label: 'stat points',
+    inputObj: {name:'stat points',class:'boxed',type:'number'},
+    divObj: {class:'stat_points'},
+    spanObj: {role:'heading','aria-level':4}
+  })
+  +input-label({
+    label: 'reserve',
+    inputObj: {name:'reserve',class:'boxed',type:'number'},
+    divObj: {class:'reserve'},
+    spanObj: {role:'heading','aria-level':4}
+  })
+  each name in stats
+    +roller({name,role:'heading','aria-level':4,'data-i18n':name})
+    +select({name,class:'boxed number'})
+      each value in [3,2,1,0,-1,-2,-3]
+        - let optObj = {value};
+        if value === 0
+          - optObj.selected = '';
+          - optObj.trigger = statTriggers[name];
+        |<!-- #{name} stat value:#{value} -->
+        +option(optObj) #{optObj.value}
+    +number({name:`${name} mod`,class:'boxed',trigger:statTriggers[name]})
+  .repeating-container__equipment.equipment.subsection
+    h2(data-i18n='gear and money')
+    +input-label({
+      label: 'easy living',
+      inputObj: {name:'easy living',class:'boxed',type:'number'},
+      divObj: {class:'subsystem-display remnants'},
+      spanObj: {role:'heading','aria-level':4}
+    })
+    .flex-box.space-between.subsystem-display.warbirds
+      +input-label({
+        label: 'fame',
+        inputObj: {name:'fame',type:'number',class:'boxed',value:2},
+        spanObj: {role:'heading','aria-level':4}
+      })
+      +input-label({
+        label: 'fame points',
+        inputObj: {name:'fame points',type:'number',class:'boxed'},
+        spanObj: {role:'heading','aria-level':4}
+      })
+    .repeat-columns
+      h5(data-i18n='name')
+      h5(data-i18n='quantity abbreviation')
+    +customControlFieldset({name:'equipment'})
+      +checkbox({name:'collapse',class:'collapse'})
+      +text({name:'name',class:'underlined',role:'heading','aria-level':3})
+      +number({name:'quantity',class:'underlined'})
+      .headed-textarea.notes.expanded
+        h5(data-i18n='notes')
+        +adaptiveTextarea({name:'notes',class:'underlined'})

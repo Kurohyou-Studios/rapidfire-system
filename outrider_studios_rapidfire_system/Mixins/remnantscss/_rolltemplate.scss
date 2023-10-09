@@ -1,0 +1,333 @@
+@use '_systemplaceholders.scss';
+.sheet-rolltemplate-rapidfire{
+  @extend %font-vars;
+	--templateRadius: 1rem;
+	--dieSize: 50px;
+	--templateBorderW: 2px 5px 2px 5px;
+	--fumbleColor: red;
+	--critColor: green;
+	--innerBorderRadius: 5px;
+	--borderSize:1px;
+  --sizeFactor: 6;
+  --cornerSize: calc(1107px / var(--sizeFactor)) calc(952px / var(--sizeFactor));
+  --headSideMargin:40px;
+  --headVerticalMargin:10px;
+  --circleSize:73px;
+  --hexagonBackgroundImage:url('https://s3.amazonaws.com/files.d20.io/images/258492885/gzYgspdnfa8K2zUgTrgV3g/original.png');
+	margin:{//ensures that the template fills the chat window
+		left: -40px;
+		right: -5px;
+	}
+  @extend %defaultStyles;
+  a[href^='!'],
+  a[href^='~']{
+    font-family: var(--topHeaderFont);
+    background-color: transparent;
+    color: black;
+    font-weight: 700;
+    padding: 0;
+  }
+  h1,h2,h3,h4,h5,a{
+    white-space: pre-wrap;
+  }
+	&:not(:first-child){//Moves the template to accomodate the sender tag
+		margin-top:10px;
+	}
+  .sheet-content{
+    @extend %grid;
+    overflow:hidden;
+  }
+	> .sheet-template{
+		overflow:hidden;
+    --hexColor:#000000;
+    &.sheet-system-remnants{
+      padding:15px 10px;
+      > .sheet-content{
+        background-color: #c2c2c2;
+        background:{
+          image:var(--hexagonBackgroundImage);
+          position:top left;
+          size:400px auto;
+          repeat:no-repeat;
+        };
+        padding:0 10px;
+        border-radius:10px;
+        border:5px solid black;
+        grid-template-columns:[roll-start footer-start] var(--headSideMargin)  [header-start] 1fr [damage-start] 1fr [roll-end difficulty-start] 1fr [damage-end] 1fr [footer-end] var(--headSideMargin)[difficulty-end header-end];
+        grid-template-areas:
+          '.            header       header       header       header       header'
+          '.            .            .            .            .            .'
+          '.            .            .            .            .            .'
+          '.            .            .            .            .            .'
+          '.            .            .            .            .            .'
+          'description  description  description  description  description  description'
+          'footer       footer       footer       footer       footer       .'
+        ;
+        &.sheet-single-roll{
+          .sheet-hexagon{
+            grid-column:damage-start / damage-end;
+          }
+        }
+      }
+      + .sheet-image-border{
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background-repeat:no-repeat;
+        &.sheet-has-header.sheet-has-footer{
+          background:{
+            image:var(--topCorner), var(--bottomCorner);
+            position:top left, bottom right;
+            size:var(--cornerSize),var(--cornerSize);
+          };
+        }
+        &.sheet-has-header:not(.sheet-has-footer){
+          background:{
+            image:var(--topCorner);
+            position:top left;
+            size:var(--cornerSize);
+          };
+        }
+        &.sheet-has-footer:not(.sheet-has-header){
+          background:{
+            image:var(--bottomCorner);
+            position:bottom right;
+            size:var(--cornerSize);
+          };
+        }
+      }
+      .sheet-header,.sheet-footer{
+        @extend %grid;
+        min-height: 30px;
+        align-items: center;
+        grid-template-areas:'content';
+        *{
+          box-sizing:border-box;
+          grid-area:content;
+        }
+      }
+      .sheet-header{
+        --headBorder:0 3px 3px 3px;
+        --headRadius:0 0 10px 10px;
+        --headItems:center start;
+        --headSelf:start;
+        --headMargin:0 0 10px -3px;
+        --headPadding:5px 10px 10px 15px;
+        grid-column:2/7;
+        *{
+          text-align:left;
+        }
+      }
+      .sheet-footer{
+        --headBorder:3px 3px 0 3px;
+        --headRadius:10px 10px 0 0;
+        --headItems:center end;
+        --headSelf:end;
+        --headMargin:9px -3px 0 0;
+        --headPadding:15px 15px 5px 5px;
+        grid-column:1/6;
+        *{
+          text-align:right;
+        }
+      }
+      .sheet-background{
+        @extend %grid;
+        grid-template-areas: 'content';
+        background-color: #aac1dd80;
+        border-color:black;
+        border-style: solid;
+        border-color: black;
+        border-width:var(--headBorder);
+        border-radius:var(--headRadius);
+        place-items:var(--headPlace);
+        margin:var(--headMargin);
+        place-self:var(--headSelf);
+        padding:var(--headPadding);
+        box-sizing:border-box;
+        backdrop-filter: blur(2px);
+        min-width:120px;
+        *{
+          opacity:0;
+        }
+      }
+      .sheet-header__content{
+        @extend %grid;
+        place-self:var(--headSelf);
+        grid-template-areas:'content';
+        padding:var(--headPadding);
+        place-items:var(--headItems);
+        margin:var(--headMargin);
+        border-radius:var(--headRadius);
+      }
+      .sheet-header__image{
+        width:100%;
+        height:100%;
+        background:{
+          image:var(--headerBottom);
+          position:bottom left;
+          size:calc(699px / var(--sizeFactor)) calc(130px / var(--sizeFactor));
+          repeat:no-repeat;
+        };
+        z-index:1;
+      }
+      .sheet-footer__content{
+        @extend %grid;
+        place-self:var(--headSelf);
+        grid-template-areas:'content';
+        place-items:var(--headItems);
+        padding: var(--headPadding);
+        margin:var(--headMargin);
+        border-radius:var(--headRadius);
+      }
+      .sheet-footer__image{
+        width:100%;
+        height:100%;
+        background:{
+          image:var(--footerTop);
+          position:top right;
+          size:calc(699px / var(--sizeFactor)) calc(130px / var(--sizeFactor));
+          repeat:no-repeat;
+        };
+        z-index:1;
+      }
+      .sheet-fumble-toggle + .sheet-hexagon__hex-wrapper{
+        --hexColor:#db1a1a;
+      }
+      .sheet-crit-toggle + .sheet-hexagon__hex-wrapper{
+        --hexColor:#02a98d;
+      }
+      .sheet-hexagon{
+        @extend %hex-base;
+        --shadow:black;
+        width:var(--circleSize);
+        aspect-ratio: 1 / 1.1547005;
+        transform:rotate(150deg);
+        h4 *{
+          font-family:var(--midHeaderFont);
+          font-weight:normal;
+        }
+      }
+      .sheet-hexagon__hex-wrapper{
+        @extend %hex-rotate;
+      }
+      .sheet-hexagon__hex-wrapper__hex-border{
+        @extend %hex-rotate;
+        @extend %hex-shape;
+        background:radial-gradient(at 150%,#585858,var(--hexColor));
+        &:before{
+          @extend %hex-shape;
+          @extend %hex-rotate;
+        }
+        &:after{
+          @extend %hex-shape;
+          @extend %hex-component;
+          transform:rotate(-120deg);
+        }
+      }
+      .sheet-hexagon__hex-wrapper__hex-border__hex-content{
+        @extend %hex-component;
+        transform:rotate(-30deg);
+        grid-template-columns:auto;
+        grid-template-rows:auto auto;
+        gap:var(--half-gap);
+        place-items:center;
+        place-content:center;
+      }
+      .sheet-roll,
+      .sheet-difficulty{
+        align-self:start;
+      }
+      .sheet-container-background{
+        background-color:white;
+        margin:{
+          right:-10px;
+          left:-10px;
+          bottom: -17px;
+        };
+        border:{
+          top:2px solid black;
+          bottom:2px solid black;
+        }
+        &,
+        + div{
+          margin-top:15px;
+          padding-block:5px;
+        }
+      }
+      .sheet-description.sheet-text{
+        h4{
+          text-align:left;
+          margin-top:var(--grid-gap);
+          font-weight:700;
+        }
+      }
+    }
+		span:not(.inlinerollresult){
+			font-size:13px;
+		}
+	}
+  .sheet-roll,
+  .sheet-difficulty{
+    &:nth-child(even){
+      grid-column:roll-start / roll-end;
+    }
+    &:nth-child(odd){
+      grid-column:difficulty-start / difficulty-end;
+    }
+  }
+  .sheet-damage{
+    &:nth-child(even){
+      grid-column:damage-start / damage-end;
+    }
+    &:nth-child(odd){
+      grid-column:difficulty-start / difficulty-end;
+    }
+  }
+  @each $area in header,description,footer{
+    .sheet-#{$area}{
+      grid-area:$area;
+    }
+  }
+  :not(div),
+  .sheet-hexagon,
+  .sheet-hexagon div,
+  .sheet-text,
+  .sheet-description:not(.sheet-container-background){
+    position:relative;
+    z-index:10;
+  }
+	.inlinerollresult{
+    font-size:1.5rem;
+		&[title*="[computed value]"],
+		&[original-title*="[computed value]"]{
+			pointer-events: none;
+		}
+		&,
+		&.fullcrit,
+		&.fullfail,
+		&.importantroll{
+			border: none;
+			background-color: transparent;
+		}
+		&.fullcrit{
+			
+		}
+		&.fullfail{
+			
+		}
+		&.importantroll{
+			
+		}
+	}
+  .sheet-hexagon,.sheet-circle{
+		place-self:center;
+    &.sheet-damage{
+      justify-self:center;
+    }
+    :not(div){
+      color:white;
+    }
+	}
+}

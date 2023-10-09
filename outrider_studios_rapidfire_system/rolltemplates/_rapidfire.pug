@@ -1,0 +1,45 @@
+//-Rolltemplate definitions
++rolltemplate(templateName)
+  div(class=`template ${name} system-{{system}}`)
+    .content(class='{{#singleroll}}single-roll{{/singleroll}}')
+      +templateConditionalDisplay('header')
+        .header
+          .header__background.background
+            h3(tabindex='-1') {{header}}
+          .header__content
+            h3 {{header}}
+          .header__image
+      +templateConditionalDisplay('roll')
+        +hexagon({},'status').sheet-roll
+          h4(data-i18n='roll')
+          |{{roll}}
+      each num in [1,2,3,4,5,6]
+        +templateConditionalDisplay(`roll${num}`)
+          - let hexObj = {class:`sheet-roll`};
+          +hexagon(hexObj,`status${num}`)
+            h4(data-i18n='roll')
+            |{{roll#{num}}}
+      +templateConditionalDisplay('difficulty')
+        +hexagon().difficulty
+          h4(data-i18n='difficulty')
+          |{{difficulty}}
+      +templateConditionalDisplay('damage')
+        +hexagon().damage
+          +templateConditionalDisplay('damage_label')
+            h4 {{computed::damage_label}}
+          +templateConditionalDisplay('damage_label',true)
+            h4(data-i18n='damage')
+          |{{computed::damage}}
+      +templateConditionalDisplay('description')
+        .container-background.description
+        .description.text
+          h4(data-i18n='notes')
+          span {{description}}
+          +userTemplateFields
+      +templateConditionalDisplay('description',true)
+        +templateConditionalDisplay('custom_description')
+          .container-background.description
+          .description.text
+            +userTemplateFields
+      +rapidfireCharacterLink
+  div(class='image-border{{#header}} has-header{{/header}}{{#character_name}} has-footer{{/character_name}}')

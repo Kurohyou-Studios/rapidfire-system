@@ -1,0 +1,38 @@
+@use '_systemplaceholders.scss';
+#remnant-ratings{
+  @extend %grid;
+  grid-template-columns:1fr repeat(2,auto);
+  grid-template-areas:'header header header';
+  .remnant-skills{
+    @extend %repeat-section-layout;
+    grid-template-areas:'header header header';
+    place-self:stretch;
+    grid-column:1/-1;
+    gap:0;
+    *{
+      place-self:stretch;
+    }
+    input{
+      width:100%;
+    }
+    &,
+    .repeat-columns{
+      grid-template-columns:1fr 4rem 3rem;
+      *{
+        align-self:center;
+      }
+    }
+    .repeat-columns{
+      grid-column:1/-1;
+      :not(:first-child){
+        text-align:center;
+      }
+    }
+    .roller{
+      justify-self:start;
+    }
+    input{
+      justify-self:center;
+    }
+  }
+}

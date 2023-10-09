@@ -1,0 +1,62 @@
+article#large-vehicle.large-vehicle.navigable-section
+  section(aria-labelledby='vehicle-header')#vehicle.repeating-container
+    .section.main-structure
+      +text({name:'character name',class:'underlined',role:'heading','aria-level':2,id:'vehicle-header'})
+      each name in ['armour','performance','defence','threat','structure']
+        if /structure|threat/.test(name)
+          .input-label
+            label(for=`vehicle-${name}` data-i18n=name role='heading' aria-level=4)
+            //-
+              +number()
+              span.slash /
+              +hidden()
+            - const currentObj = {name:name,id:`vehicle-${name}`}
+            - const maxObj = {name:`${name} max`};
+            if name === 'structure'
+              - currentObj.trigger = {calculation:'totalHealth',initialFunc:'syncHealth'};
+              - maxObj.trigger = {triggeredFuncs:['calcHealth']};
+            .boxed.span-2
+              +number(currentObj)
+              span.slash /
+              +number(maxObj)
+        else
+          +input-label({
+            label: name,
+            inputObj: {name,type:'number',class:'boxed'},
+            spanObj: {role:'heading','aria-level':4}
+          })
+      +track('structure track','large-structure',{affects:['large_defence']})
+    +customControlFieldset({name:'vehicle'})
+      +checkbox({name:'collapse',class:'collapse'})
+      +text({name:'name',class:'underlined','data-i18n-placeholder':'subsystem name',role:'heading','aria-level':3})
+      .input-label
+        h4(data-i18n='defence')
+        +number({name:'component defence',class:'boxed'})
+      +input-label({
+        label: 'armour',
+        inputObj: {name:'component armour',type:'number',class:'boxed'},
+        spanObj: {role:'heading','aria-level':4}
+      })
+      .attacks
+        +roller({name:'roll','data-i18n':'accuracy',role:'heading','aria-level':4})
+        +number({name:'accuracy',type:'number',class:'underlined'})
+        .roll-plus
+          +span({'data-i18n':'lead'})
+          span.plus +
+          +number({name:'damage',class:'underlined input-label__input',trigger:{calculation:'calcVehicleDamage'}})
+      .input-label
+        h4(data-i18n='structure')
+        .boxed.span-2
+          +number({name:'component structure',value:5})
+          span.slash /
+          +number({name:`component structure max`,value:5})
+      .structure-track.input-label.span-all
+        h4(data-i18n='penalties')
+        each num in [...Array(10).keys()].map(k => k + 1)
+          +number({name:`component structure penalty ${num}`,class:'boxed health-track__number'})
+          +radio({name:'component structure max',value:num,hidden:'',class:'structure-display-control'})
+
+      //- Add attacks
+      .headed-textarea.notes.expanded
+        h5(data-i18n='notes')
+        +adaptiveTextarea({name:'notes',class:'underlined'})

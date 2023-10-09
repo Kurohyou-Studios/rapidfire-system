@@ -1,0 +1,22 @@
+@use '_systemplaceholders.scss';
+#remnant-stats{
+  @extend %grid;
+  grid-template-columns:1fr repeat(2,auto) 1fr repeat(2,auto);
+  grid-template-areas:
+    'header header header header header header'
+    '. . . . . .'
+    '. . . . . .'
+    '. . . . . .'
+    'assault_damage_label assault_damage_label assault_damage_label assault_damage_label assault_damage_label assault_damage_input'
+    'strike_damage_label  strike_damage_label  strike_damage_label  strike_damage_label  strike_damage_label  strike_damage_input'
+    'strike_range_label   strike_range_label   strike_range_label   strike_range_label   strike_range_label   strike_range_input'
+  ;
+  @each $field in strike_damage,strike_range,assault_damage{
+    .#{$field}_label{
+      grid-area:#{$field}_label;
+    }
+    .#{$field}_input{
+      grid-area:#{$field}_input;
+    }
+  }
+}

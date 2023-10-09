@@ -1,0 +1,79 @@
+@use '../genericcss/_genericplaceholders.scss';
+@use 'k-scaffold' as k;
+#npc{
+  nav{
+    ul{
+      display:flex;
+      gap:var(--grid-gap);
+      justify-content: center;
+      button{
+        text-transform:capitalize;
+      }
+    }
+  }
+}
+#base-npc{
+  grid-template-areas:'header';
+  .heading{
+    grid-area: header;
+    [type="text"]{
+      min-width:0;
+      flex: 1 1 auto;
+    }
+  }
+  .skill-container{
+    .expanded-inline-fieldset + fieldset + .repcontainer{
+      justify-content: space-around;
+
+    }
+    .repcontainer{
+      gap:0;
+    }
+    .repitem{
+      overflow:hidden;
+      > * {
+        padding-inline:var(--tiny-gap);
+      }
+    }
+  }
+  .combat{
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    > h2,.health-track{
+      grid-area:initial;
+      grid-column: 1 / -1;
+    }
+  }
+  .toggle-before{
+    &:before{
+      content:'settings';
+      text-transform:none;
+      @include k.materialStyle;
+    }
+    &.expand-toggle{
+      &:before{
+        content:'construction'
+      }
+    }
+    &:not(.expand-toggle){
+      ~ :is(.repcontrol-button,.repcontrol){
+        display:none;
+      }
+    }
+  }
+  .attack-container{
+    .collapse{
+      right:calc((var(--half-gap) + var(--tiny-gap)) * -1);
+    }
+    .repcontainer{
+      gap:var(--grid-gap);
+      .repitem{
+        display:flex;
+      }
+      .repitem:not(:last-child){
+        &:after{
+          content:','
+        }
+      }
+    }
+  }
+}

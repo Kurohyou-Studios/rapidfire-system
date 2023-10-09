@@ -1,0 +1,14 @@
+@use '_systemplaceholders.scss';
+// Character styling
+#character{
+  @extend %article-layout;
+  border:{
+    left:1px solid black;
+  }
+  grid-template-rows:repeat(2,auto) 1fr;
+  grid-template-areas:
+    "."
+    "skills"
+    "skills"
+  ;
+}

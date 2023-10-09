@@ -1,0 +1,75 @@
+section(data-i18n-aria-label="npc")#base-npc.base-npc.all-npc.conditional-section
+  .flex-box.half-gap.heading
+    +text({name:'character name',role:'heading','aria-level':2})
+  +adaptiveTextarea({name:'character description',class:'underlined'})
+  section(data-i18n-aria-label="basic info").basic
+    .stat-container
+      each name in stats
+        +input-label({
+          label: name,
+          inputObj: {name,type:'number',class:'underlined'},
+          spanObj: {class:'capitalize'}
+        })
+      +roller-label({
+        inputObj: {name:'initiative',type:'number',class:'underlined'},
+        buttonObj: {name:'initiative','data-i18n':'initiative',role:'heading','aria-level':5}
+      })
+    .skill-container.repeating-container
+      +action({
+        name:'edit skills',
+        'data-i18n':'skills',
+        role:'heading',
+        'aria-level':2,
+        id:'npc-skill-header',
+        class:'toggle-before',
+        trigger:{
+          triggeredFuncs:['editNPCSkills']
+        }
+      })
+      +customControlFieldset({name:'skill',addClass:'inline-fieldset'})
+        +collapse()(hidden)
+        +hidden({name:'level',class:'display-control'})
+        .collapsed.controlled-display
+          +roller({name:'roll'})
+            +span({name:'name'})
+          +hidden({name:'level',class:'plus-control'})
+          +span({name:'level',class:'plus-display'})
+        .expanded
+          +text({name:'name',class:'underlined'})
+          +number({name:'level',class:'underlined'})
+  section(data-i18n-aria-label="combat info").combat
+    h2(data-i18n='combat')
+    each name in ['defence','resist']
+      +input-label({
+        label: name,
+        inputObj: {name,type:'number',class:'underlined'}
+      })
+    .flex-box.half-gap
+      label(data-i18n='health' for="npc-health")
+      .boxed
+        +number({name:'health'})
+        span.slash /
+        +number({name:'health max'})
+    +track('health track','health')
+    .attack-container.repeating-container.span-all
+      h2(data-i18n='attacks')
+      +customControlFieldset({name:'weapon',addClass:'inline-fieldset'})
+        +collapse
+        .collapsed
+          +roller({name:'roll',class:'inline-flex-box tiny-gap flex-wrap'})
+            +span({name:'name'})
+            span 1d6
+            +hidden({name:'accuracy',class:'plus-control'})
+            +span({name:'accuracy',class:'plus-display'})
+            +span({'data-i18n':'lead'})
+            +hidden({name:'damage',class:'plus-control'})
+            +span({name:'damage',class:'plus-display'})
+        .expanded
+          +text({name:'name',class:'underlined'})
+          .flex-box.half-gap
+            span(data-i18n='accuracy')
+            +number({name:'accuracy',class:'underlined'})
+          .roll-plus
+            +span({'data-i18n':'lead'})
+            span.plus +
+            +number({name:'damage',class:'underlined'})

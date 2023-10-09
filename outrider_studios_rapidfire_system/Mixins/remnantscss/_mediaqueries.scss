@@ -1,0 +1,41 @@
+@use '_systemplaceholders.scss';
+@media (min-width:680px) {
+  #weapon,#remnant-weapons{
+    grid-column:span 2;
+  }
+}
+@media (min-width:680px) and (max-width:987px){
+  #remnant-drone{
+    @include systemplaceholders.wideDrone;
+  }
+}
+@media(min-width:1300px){
+  #main{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    column-gap:var(--big-gap);
+    .system-header{
+      grid-column:1/-1;
+    }
+    .sheet-state:not([value='settings']){
+      ~ article:not(#settings):not(.inactive){
+        display:grid;
+      }
+      ~ #main-nav{
+        .nav__button--tab{
+          @include systemplaceholders.activeTab;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+  #settings{
+    grid-column:1/-1;
+  }
+  #main-nav{
+    grid-column:1/-1;
+  }
+  #remnant-drone{
+    @include systemplaceholders.wideDrone;
+  }
+}

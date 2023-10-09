@@ -1,0 +1,7 @@
+section#remnant-pic.section
+  +track('structure track','remnant structure',{affects:['remnant_defence']})
+  +input-label('duress',{name:'duress',type:'number',class:'boxed'},{},{role:'heading','aria-level':2})
+  .image-container.remnant-token
+    +input-label('image prompt',{name:'remnant token',type:'text',class:'boxed',value:'https://s3.amazonaws.com/files.d20.io/images/259054779/OzN3yQwg7MbfXNtMYs-iOg/original.png',trigger:{triggeredFuncs:['imageInput']}},{class:'image-container__input stacked'},{role:'heading','aria-level':5})
+    +action({name:'remnant token',class:'image-container__button',trigger:{listenerFunc:'toggleImageInput'}})
+      +img({name:'remnant token',class:'image-container__image',src:'https://s3.amazonaws.com/files.d20.io/images/259054779/OzN3yQwg7MbfXNtMYs-iOg/original.png'})

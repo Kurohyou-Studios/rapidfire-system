@@ -1,0 +1,13 @@
+section#character-info.section
+  h2(data-i18n='character info')
+  each field in characterFields
+    - let inputObj = {name:field,type:'text',class:`underlined ${replaceSpaces(field)}`};
+    +input-label({
+      label: field,
+      inputObj,
+      spanObj: {role:'heading','aria-level':5}
+    })
+  .headed-textarea.appearance
+    h5(data-i18n='appearance / mannerisms')
+    +adaptiveTextarea({name:'appearance/mannerisms',class:'underlined'})
+  +track('health track','health')

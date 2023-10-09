@@ -1,0 +1,20 @@
++repeating_section({
+  name: 'weapon',
+  header: 'weapons',
+  columnArr: ['weapon','skill','damage']
+})
+  +checkbox({name:'collapse',class:'collapse'})
+  +roller({name:'roll'})
+  +text({name:'name',class:'underlined'})
+  +hidden({name:'skill',value:'select'})
+  +actionQuery({name:'skill action',trigger:{listenerFunc:'dynamicSelect'}})
+    +checkbox({name:'translate skill',hidden:'',value:'1',class:'raw-control',checked:''})
+    +span({name:'skill',class:'raw underlined translated','data-i18n-dynamic':''})
+    +span({name:'skill',class:'custom underlined untranslated'})
+  .roll-plus
+    +span({'data-i18n':'lead'})
+    span.plus +
+    +number({name:'damage',class:'underlined'})
+  .headed-textarea.notes.expanded
+    h5(data-i18n='notes')
+    +adaptiveTextarea({name:'notes',class:'underlined'})

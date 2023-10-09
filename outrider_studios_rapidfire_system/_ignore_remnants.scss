@@ -1,0 +1,28 @@
+//Generic scss
+@use 'Mixins/genericcss/_genericstyle.scss';
+//The sheet container scss
+@use 'Mixins/sectionscss/_main.scss' as genericmain;
+
+//Sections that are styled generically.
+@use 'Mixins/sectionscss/_characterinfo.scss';
+@use 'Mixins/sectionscss/_settings.scss';
+@use 'Mixins/sectionscss/_stats.scss';
+@use 'Mixins/sectionscss/_secondary.scss';
+@use 'Mixins/sectionscss/_skills.scss';
+@use 'Mixins/sectionscss/_adjustments.scss';
+@use 'Mixins/sectionscss/_weapons.scss';
+
+//System Specific Styles
+@use 'Mixins/remnantscss/_main.scss';
+@use 'Mixins/remnantscss/_character.scss';
+@use 'Mixins/remnantscss/_nav.scss';
+@use 'Mixins/remnantscss/_mediaqueries.scss';
+@use 'Mixins/remnantscss/_remnant.scss';
+@use 'Mixins/remnantscss/_remnantratings.scss';
+@use 'Mixins/remnantscss/_remnantstats.scss';
+@use 'Mixins/remnantscss/_remnantspecialty.scss';
+@use 'Mixins/remnantscss/_remnanttrait.scss';
+@use 'Mixins/remnantscss/_remnantdrone.scss';
+@use 'Mixins/remnantscss/_remnantweapons.scss';
+
+@use 'Mixins/remnantscss/_rolltemplate.scss';

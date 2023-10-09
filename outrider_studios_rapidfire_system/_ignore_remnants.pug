@@ -1,0 +1,36 @@
+include k-scaffold
+include Mixins/_Sheet Mixins.pug
+- let templateName = 'rapidfire';
+- const system = 'remnants';
++hidden({name:'template_start',value:`&{template:${templateName}} {{character_name=@{character_name}}} {{character_id=@{character_id}}} {{system=@{system}}}`})
++hidden({name:'collapsed',value:''})
++hidden({name:'system',value:'remnants'})
+main#main.subsystem-style.system-remnant
+  +hidden({name:'sheet_state',value:'settings',class:'sheet-state'})
+  +hidden({name:'system header'})
+  +img({name:'system header',role:'heading','aria-level':1,class:'system-header subsystem-display remnants','data-i18n':'system header'})
+  h1(data-i18n='warbirds' class='system-header subsystem-display warbirds')
+  nav#main-nav.subsystem-style.system-remnant
+    each name in ['character','npc']
+      +navButton({name,'data-i18n':name,class:`nav__button nav__button--tab nav__button--tab--left ${name.replace(/\s+/g,'-')}`,role:'heading','aria-level':4,trigger:{listenerFunc:'navigateSheet'}})
+    +navButton({name:'settings',class:'active nav__button nav__button--settings settings',trigger:{listenerFunc:'navigateSheet'}})
+      |y
+    +navButton({name:'battle remnant','data-i18n':'battle remnant',class:'nav__button nav__button--tab nav__button--tab--right battle-remnant subsystem-display remnants',role:'heading','aria-level':4,trigger:{listenerFunc:'navigateSheet'}})
+  include articles/settings/_settings.pug
+  include articles/character/_character_remnants.pug
+  include articles/battle-remnant/_battle-remnant.pug
+  include articles/warbird/_warbird.pug
+  include rolltemplates/_rapidfire.pug
++kscript
+  //- All additional javascript files should start here
+  include Javascript/remnants/variables.js
+
+  include Javascript/genericjs/setupfunctions.js
+  include Javascript/genericjs/clickfunctions.js
+  include Javascript/genericjs/initialchangefunctions.js
+  include Javascript/genericjs/triggeredfunctions.js
+  include Javascript/genericjs/calculators.js
+
+  include Javascript/remnants/rollfunctions.js
+  include Javascript/remnants/calculators.js
+  include Javascript/remnants/updaters.js
