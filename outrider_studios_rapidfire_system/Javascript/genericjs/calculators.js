@@ -23,7 +23,8 @@ const calcDefence = function({trigger,attributes,sections}){
   const actionPenalty = attributes.action_penalty_automation === 'use input' ?
     attributes.action_penalty :
     0;
-  const total =  3 + attributes.body + defenceSkill + attributes.shield_bonus + damagePenalty + attributes.defence_mod + actionPenalty;
+  const total =  3 + attributes.body + defenceSkill + (attributes.shield_bonus || 0) + damagePenalty + attributes.defence_mod + actionPenalty;
+  debugger;
   return Math.max(total,0);
 };
 k.registerFuncs({calcDefence});
@@ -50,8 +51,9 @@ const calcSA = function({attributes}){
   if(attributes.sheet_type === 'npc'){
     return attributes.situational_awareness;
   }
-  return ['body','mind','spirit'].reduce((m,attr)=>{
+  const tot =  ['body','mind','spirit'].reduce((m,attr)=>{
     return m + attributes[attr];
   },0);
+  return tot;
 };
 k.registerFuncs({calcSA});

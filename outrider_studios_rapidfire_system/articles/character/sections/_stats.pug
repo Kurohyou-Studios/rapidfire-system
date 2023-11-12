@@ -14,15 +14,14 @@ section#stats.stat-grid.section.repeating-container
   })
   each name in stats
     +roller({name,role:'heading','aria-level':4,'data-i18n':name})
-    +select({name,class:'boxed number'})
+    +select({name,class:'boxed number',trigger:{...statTriggers[name]}})
       each value in [3,2,1,0,-1,-2,-3]
         - let optObj = {value};
         if value === 0
           - optObj.selected = '';
-          - optObj.trigger = statTriggers[name];
         |<!-- #{name} stat value:#{value} -->
         +option(optObj) #{optObj.value}
-    +number({name:`${name} mod`,class:'boxed',trigger:statTriggers[name]})
+    +number({name:`${name} mod`,class:'boxed',trigger:{...statTriggers[name]}})
   .repeating-container__equipment.equipment.subsection
     h2(data-i18n='gear and money')
     +input-label({

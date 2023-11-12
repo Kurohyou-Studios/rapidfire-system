@@ -1,7 +1,7 @@
 - const warbirdRatings = ['situational awareness'];//Strafing, Gunnery, and Ordinance will be totalled slightly differently here than on paper sheet
 -
   const warbirdRatingTriggers = {
-    'situational awareness':{affects:['warbird_initiative','warbird_defence'],calculation:'calcSA'},
+    'situational awareness':{affects:['warbird_initiative','break_defence'],calculation:'calcSA'},
   };
 -
   const warbirdRatingBonusTriggers = {
@@ -9,6 +9,7 @@
     'warbird defence':{affects:['warbird_defence']}
   };
 - const warbirdSkills = ['piloting','strafing','gunnery','ordinance'];
+- varObjects.warbirdSkills = warbirdSkills;
 -
   const warbirdSkillTriggers = {
     piloting:{affects:['dogfighting_rating','break_defence','stunt']},

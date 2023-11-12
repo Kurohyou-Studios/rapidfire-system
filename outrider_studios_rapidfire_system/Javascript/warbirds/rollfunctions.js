@@ -72,6 +72,9 @@ const initiateRoll = function(event){
     let actionPenalty = determineActionPenalty(attributes);
     if(!section){
       //Base rolling for simple stats
+      if(warbirdSkills.includes(field)){
+        field = `${field}_level`;
+      }
       let healthType = determineHealthType(section,field);
       let penalty = determinePenalty(healthType,attributes,sections);
       rollObj.header = `^{${field.replace(/-/g,' ')}}`;//output translation of name
