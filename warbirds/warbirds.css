@@ -1302,13 +1302,16 @@ ul.nav-tabs.nav {
   font-family: var(--midHeaderFont);
   padding-top: 18px;
   padding-bottom: 15px;
+  position: relative;
+  isolation: isolate;
 }
-.nav-tabs li a[data-tab=charsheet] {
-  background-image: url(https://s3.amazonaws.com/files.d20.io/images/259063058/V4Hm27FqfgBujU8bI74Xaw/original.png);
+.nav-tabs li a[data-tab=charsheet]:before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url(https://s3.amazonaws.com/files.d20.io/images/270598775/-4fyt16JZqo_JLLhKpGeCQ/original.jpg);
   background-size: contain;
   background-repeat: no-repeat;
-  padding-left: 50px;
-  padding-right: 12px;
 }
 
 #main-nav {
@@ -1396,16 +1399,16 @@ ul.nav-tabs.nav {
   #main .system-header {
     grid-column: 1/-1;
   }
-  #main .sheet-state:not([value=settings]) ~ article:not(#settings):not(.inactive) {
+  #main .sheet-state:not([value=settings], [value=large-vehicle]) ~ article:not(#settings):not(.inactive) {
     display: grid !important;
   }
-  #main .sheet-state:not([value=settings]) ~ #main-nav .nav__button--tab {
+  #main .sheet-state:not([value=settings], [value=large-vehicle]) ~ #main-nav .nav__button--tab {
     color: black;
     background-color: silver;
     box-shadow: 0 0 0 var(--half-gap) black inset, var(--grid-gap) 0 0 var(--half-gap) black inset, calc(var(--grid-gap) * -1) 0 0 var(--half-gap) black inset;
     pointer-events: none;
   }
-  #main .sheet-state:not([value=settings]) ~ #main-nav .nav__button--tab:before, #main .sheet-state:not([value=settings]) ~ #main-nav .nav__button--tab:after {
+  #main .sheet-state:not([value=settings], [value=large-vehicle]) ~ #main-nav .nav__button--tab:before, #main .sheet-state:not([value=settings], [value=large-vehicle]) ~ #main-nav .nav__button--tab:after {
     opacity: 1;
   }
   #settings {

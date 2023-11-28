@@ -12,7 +12,7 @@
     .system-header{
       grid-column:1/-1;
     }
-    .sheet-state:not([value='settings']){
+    .sheet-state:not([value='settings'],[value="large-vehicle"]){
       ~ article:not(#settings):not(.inactive){
         display:grid !important;
       }

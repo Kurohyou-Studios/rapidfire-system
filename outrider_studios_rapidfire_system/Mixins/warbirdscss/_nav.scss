@@ -6,14 +6,17 @@
     top: 18px;
     bottom:15px;
   };
+  position: relative;
+  isolation: isolate;
   &[data-tab='charsheet']{
-    background-image: url(https://s3.amazonaws.com/files.d20.io/images/259063058/V4Hm27FqfgBujU8bI74Xaw/original.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    padding:{
-      left:50px;
-      right:12px;
-    };
+    &:before{
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url(https://s3.amazonaws.com/files.d20.io/images/270598775/-4fyt16JZqo_JLLhKpGeCQ/original.jpg);
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
   }
 }
 #main-nav{
