@@ -93,6 +93,5 @@ const skillQuery = ({section,rowID,field},attributes,sections) => {
     memo += optionText;
     return memo;
   },getTranslationByKey('skill query'));
-  debugger;
   return k.extractQueryResult(skillQuery);
 }

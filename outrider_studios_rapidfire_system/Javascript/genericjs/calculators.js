@@ -24,7 +24,6 @@ const calcDefence = function({trigger,attributes,sections}){
     attributes.action_penalty :
     0;
   const total =  3 + attributes.body + defenceSkill + (attributes.shield_bonus || 0) + damagePenalty + attributes.defence_mod + actionPenalty;
-  debugger;
   return Math.max(total,0);
 };
 k.registerFuncs({calcDefence});

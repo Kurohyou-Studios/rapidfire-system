@@ -1397,7 +1397,7 @@ ul.nav-tabs.nav {
     grid-column: 1/-1;
   }
   #main .sheet-state:not([value=settings]) ~ article:not(#settings):not(.inactive) {
-    display: grid;
+    display: grid !important;
   }
   #main .sheet-state:not([value=settings]) ~ #main-nav .nav__button--tab {
     color: black;

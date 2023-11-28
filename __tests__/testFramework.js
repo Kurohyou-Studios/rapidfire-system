@@ -1589,7 +1589,6 @@ const skillQuery = ({section,rowID,field},attributes,sections) => {
     memo += optionText;
     return memo;
   },getTranslationByKey('skill query'));
-  debugger;
   return k.extractQueryResult(skillQuery);
 }/*jshint esversion: 11, laxcomma:true, eqeqeq:true*/
 /*jshint -W014,-W084,-W030,-W033*/
@@ -1737,7 +1736,6 @@ const calcDefence = function({trigger,attributes,sections}){
     attributes.action_penalty :
     0;
   const total =  3 + attributes.body + defenceSkill + (attributes.shield_bonus || 0) + damagePenalty + attributes.defence_mod + actionPenalty;
-  debugger;
   return Math.max(total,0);
 };
 k.registerFuncs({calcDefence});

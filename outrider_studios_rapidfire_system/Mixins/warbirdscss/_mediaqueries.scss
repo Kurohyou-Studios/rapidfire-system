@@ -14,7 +14,7 @@
     }
     .sheet-state:not([value='settings']){
       ~ article:not(#settings):not(.inactive){
-        display:grid;
+        display:grid !important;
       }
       ~ #main-nav{
         .nav__button--tab{
